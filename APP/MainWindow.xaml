@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:APP"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Komunikacja z serwerem" Height="350" Width="300">
     <Grid>
-        
+        <StackPanel Margin="20">
+            <TextBlock Text="Liczba 1:"/>
+            <TextBox />
+            <TextBlock Text="Liczba 2:"/>
+            <TextBox />
+            <Button Content="Policz" Margin="10"/>
+            <TextBlock Text="Wynik to:" TextAlignment="Center"/>
+            <TextBlock TextAlignment="Center" FontSize="24"/>
+        </StackPanel>
     </Grid>
 </Window>
