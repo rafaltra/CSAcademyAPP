@@ -10,10 +10,11 @@ using Microsoft.Practices.Prism.Mvvm;
 namespace APP.ViewModels
 {
     public class MainWindowViewModel : BindableBase
-    {   
+    {
+        private string _sum;
         public string FirstNumber { get; set; }
         public string SecondNumber { get; set; }
-        public string Sum { get; set; }
+        public string Sum { get { return _sum; } set { SetProperty(ref _sum, value); } }
         public ICommand SumCommand { get; set; } 
         public MainWindowViewModel()
         {
