@@ -9,12 +9,12 @@
     <Grid>
         <StackPanel Margin="20">
             <TextBlock Text="Liczba 1:"/>
-            <TextBox />
+            <TextBox Text="{Binding FirstNumber}" />
             <TextBlock Text="Liczba 2:"/>
-            <TextBox />
+            <TextBox Text="{Binding SecondNumber}"/>
             <Button Content="Policz" Margin="10"/>
             <TextBlock Text="Wynik to:" TextAlignment="Center"/>
-            <TextBlock TextAlignment="Center" FontSize="24"/>
+            <TextBlock Text="{Binding Sum}" TextAlignment="Center" FontSize="24"/>
         </StackPanel>
     </Grid>
 </Window>

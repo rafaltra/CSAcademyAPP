@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using APP.ViewModels;
 
 namespace APP
 {
@@ -23,6 +24,12 @@ namespace APP
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowViewModel()
+            {
+                FirstNumber = "2",
+                SecondNumber = "5",
+                Sum = "15"
+            };
         }
     }
 }
