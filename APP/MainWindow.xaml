@@ -12,7 +12,7 @@
             <TextBox Text="{Binding FirstNumber}" />
             <TextBlock Text="Liczba 2:"/>
             <TextBox Text="{Binding SecondNumber}"/>
-            <Button Content="Policz" Margin="10"/>
+            <Button Content="Policz" Margin="10" Command="{Binding SumCommand}"/>
             <TextBlock Text="Wynik to:" TextAlignment="Center"/>
             <TextBlock Text="{Binding Sum}" TextAlignment="Center" FontSize="24"/>
         </StackPanel>
