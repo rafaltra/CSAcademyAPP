@@ -20,7 +20,7 @@ namespace APP.ViewModels
         public ICommand SumCommand { get; set; }
         public MainWindowViewModel()
         {
-            SumCommand = DelegateCommand.FromAsyncHandler(DivideNumbersOnline);
+            SumCommand = DelegateCommand.FromAsyncHandler(GetItemsOnline);
         }
         public void SumNumbers()
         {
@@ -52,8 +52,24 @@ namespace APP.ViewModels
                 return;
             }
             Sum = response.Content.ToString();
-
         }
+
+        public async Task GetItemsOnline()
+        {
+            var client = new RestClient("http://csacademyapi.azurewebsites.net/api");
+            var request = new RestRequest("Shopping");
+            var response = await client.ExecuteGetTaskAsync<List<ShopItem>>(request);
+            Sum = response.Content.ToString();
+        }
+
+        public class ShopItem
+        {
+            public object Image { get; set; }
+            public string Name { get; set; }
+            public int Count { get; set; }
+            public float Price { get; set; }
+        }
+
 
     }
 }
