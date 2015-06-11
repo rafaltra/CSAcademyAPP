@@ -16,10 +16,13 @@
             <TextBlock Text="Wynik to:" TextAlignment="Center"/>
             <TextBlock Text="{Binding Sum}" TextAlignment="Center" FontSize="24"/>
             <Button Content="Pobierz" Margin="10" Command="{Binding GetCommand}"/>
-            <ListBox ItemsSource="{Binding Items}">
+            <ListBox ItemsSource="{Binding Items}" Height="125">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Image}" Height="48" Width="48" />
+                            <TextBlock Text="{Binding Name}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
