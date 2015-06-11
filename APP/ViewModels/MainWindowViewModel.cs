@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -18,9 +19,13 @@ namespace APP.ViewModels
         public string SecondNumber { get; set; }
         public string Sum { get { return _sum; } set { SetProperty(ref _sum, value); } }
         public ICommand SumCommand { get; set; }
+        public ICommand GetCommand { get; set; }
+        public ObservableCollection<ShopItem> Items { get; set; }
         public MainWindowViewModel()
         {
-            SumCommand = DelegateCommand.FromAsyncHandler(GetItemsOnline);
+            SumCommand = DelegateCommand.FromAsyncHandler(DivideNumbersOnline);
+            GetCommand = DelegateCommand.FromAsyncHandler(GetItemsOnline);
+            Items = new ObservableCollection<ShopItem>();
         }
         public void SumNumbers()
         {
@@ -59,7 +64,14 @@ namespace APP.ViewModels
             var client = new RestClient("http://csacademyapi.azurewebsites.net/api");
             var request = new RestRequest("Shopping");
             var response = await client.ExecuteGetTaskAsync<List<ShopItem>>(request);
-            Sum = response.Content.ToString();
+            var items = response.Data;
+            if (items!=null)
+            {
+                foreach (var item in items)
+                {
+                    Items.Add(item);
+                }
+            }
         }
 
         public class ShopItem

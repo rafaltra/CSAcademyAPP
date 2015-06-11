@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:APP"
         mc:Ignorable="d"
-        Title="Komunikacja z serwerem" Height="350" Width="300">
+        Title="Komunikacja z serwerem" Height="400" Width="300">
     <Grid>
         <StackPanel Margin="20">
             <TextBlock Text="Liczba 1:"/>
@@ -15,6 +15,14 @@
             <Button Content="Policz" Margin="10" Command="{Binding SumCommand}"/>
             <TextBlock Text="Wynik to:" TextAlignment="Center"/>
             <TextBlock Text="{Binding Sum}" TextAlignment="Center" FontSize="24"/>
+            <Button Content="Pobierz" Margin="10" Command="{Binding GetCommand}"/>
+            <ListBox ItemsSource="{Binding Items}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
     </Grid>
 </Window>
