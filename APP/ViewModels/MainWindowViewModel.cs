@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace APP.ViewModels
         public string FirstNumber { get; set; }
         public string SecondNumber { get; set; }
         public string Sum { get { return _sum; } set { SetProperty(ref _sum, value); } }
-        public ICommand SumCommand { get; set; } 
+        public ICommand SumCommand { get; set; }
         public MainWindowViewModel()
         {
             SumCommand = DelegateCommand.FromAsyncHandler(DivideNumbersOnline);
@@ -41,11 +42,17 @@ namespace APP.ViewModels
         public async Task DivideNumbersOnline()
         {
             var client = new RestClient("http://csacademyapi.azurewebsites.net/api");
-            var request = new RestRequest("Divide");
+            var request = new RestRequest("SafeDivide");
             request.AddQueryParameter("number1", FirstNumber);
             request.AddQueryParameter("number2", SecondNumber);
             var response = await client.ExecuteGetTaskAsync(request);
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                Sum = "Błąd liczenia!";
+                return;
+            }
             Sum = response.Content.ToString();
+
         }
 
     }
