@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using RestSharp;
 
 namespace APP.ViewModels
 {
@@ -18,7 +19,7 @@ namespace APP.ViewModels
         public ICommand SumCommand { get; set; } 
         public MainWindowViewModel()
         {
-            SumCommand = new DelegateCommand(SumNumbers);
+            SumCommand = DelegateCommand.FromAsyncHandler(SumNumbersOnline);
         }
         public void SumNumbers()
         {
@@ -26,5 +27,16 @@ namespace APP.ViewModels
             var second = int.Parse(SecondNumber);
             Sum = (first + second).ToString();
         }
+
+        public async Task SumNumbersOnline()
+        {
+            var client = new RestClient("http://csacademyapi.azurewebsites.net/api");
+            var request = new RestRequest("Add");
+            request.AddQueryParameter("number1", FirstNumber);
+            request.AddQueryParameter("number2", SecondNumber);
+            var response = await client.ExecuteGetTaskAsync<int>(request);
+            Sum = response.Data.ToString();
+        }
+
     }
 }
