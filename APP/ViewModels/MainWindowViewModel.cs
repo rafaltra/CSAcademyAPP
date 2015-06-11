@@ -19,7 +19,7 @@ namespace APP.ViewModels
         public ICommand SumCommand { get; set; } 
         public MainWindowViewModel()
         {
-            SumCommand = DelegateCommand.FromAsyncHandler(SumNumbersOnline);
+            SumCommand = DelegateCommand.FromAsyncHandler(DivideNumbersOnline);
         }
         public void SumNumbers()
         {
@@ -34,8 +34,18 @@ namespace APP.ViewModels
             var request = new RestRequest("Add");
             request.AddQueryParameter("number1", FirstNumber);
             request.AddQueryParameter("number2", SecondNumber);
-            var response = await client.ExecuteGetTaskAsync<int>(request);
-            Sum = response.Data.ToString();
+            var response = await client.ExecuteGetTaskAsync(request);
+            Sum = response.Content.ToString();
+        }
+
+        public async Task DivideNumbersOnline()
+        {
+            var client = new RestClient("http://csacademyapi.azurewebsites.net/api");
+            var request = new RestRequest("Divide");
+            request.AddQueryParameter("number1", FirstNumber);
+            request.AddQueryParameter("number2", SecondNumber);
+            var response = await client.ExecuteGetTaskAsync(request);
+            Sum = response.Content.ToString();
         }
 
     }
